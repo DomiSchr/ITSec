@@ -32,7 +32,7 @@ public class Aufgabe2 {
 
 		double[] warsch = new double[67];
 
-		// Ausgabe:
+		// Ausgabe: 
 		int i = 0;
 		while ((char) ('A' + i) != '[') {
 			System.out.println((char) ('A' + i) + ": " + anzahl[('A' + i) % 67]);
