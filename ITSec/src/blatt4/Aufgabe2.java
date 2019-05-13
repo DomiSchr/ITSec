@@ -11,16 +11,12 @@ public class Aufgabe2 {
 
 		try {
 
-//			Zuerst die großen Buchstaben, danach Ö, Ä, Ü, die kleinen Buchstaben, ö, ä, ü, dann 0-9
-
 			s = new String(Files.readAllBytes(Paths.get("text.txt")), "UTF-8");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// a)
 
 		char c;
 		HashMap<Character, Integer> anzahl = new HashMap<>();
@@ -38,18 +34,40 @@ public class Aufgabe2 {
 		anzahl.remove('\n');
 
 //		 Anzahl:
-		int i = 0;
 		for (char u : anzahl.keySet()) {
-			System.out.println(u + " :" + anzahl.get(u));
+			System.out.println(u + ": " + anzahl.get(u));
 		}
 
 //		 a) Informationsgehalt:
-		i = 0;
 		for (char u : anzahl.keySet()) {
-			System.out.println(
-					u + ":" + (double)();
-
+			System.out.println(u + ": " + informationsgehalt(anzahl, u));
 		}
 
+//		b) Shannon-Entropie:
+		double entr = 0;
+		for (char u : anzahl.keySet()) {
+			entr += (double)(anzahl.get(u) / anzahl.size()) * informationsgehalt(anzahl, u);
+		}
+		System.out.println("Shannon-Entropie: " + entr);
+
+//		c) Min-Entropie:
+		entr = informationsgehalt(anzahl, '0');
+
+		for (char u : anzahl.keySet()) {
+			if(informationsgehalt(anzahl, u) <  entr){
+				entr = informationsgehalt(anzahl, u);
+			}
+		}
+		
+		System.out.println("Min-Entropie: " + entr);
+
+	}
+
+	public static double log2(double d) {
+		return Math.log(d) / Math.log(2.0);
+	}
+
+	public static double informationsgehalt(HashMap<Character, Integer> h, char c) {
+		return -(log2((double) h.get(c) / h.size()));
 	}
 }
