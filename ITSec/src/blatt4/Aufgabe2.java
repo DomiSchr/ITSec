@@ -17,7 +17,7 @@ public class Aufgabe2 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		char c;
 		HashMap<Character, Integer> anzahl = new HashMap<>();
 
@@ -37,25 +37,32 @@ public class Aufgabe2 {
 		for (char u : anzahl.keySet()) {
 			System.out.println(u + ": " + anzahl.get(u));
 		}
+		
+//		Anzahl Symbole:
+		int anz = 0;
+		for (char u : anzahl.keySet()) {
+			anz += anzahl.get(u); 
+		}
+		System.out.println("Anzahl Symbole: " + anz);
 
 //		 a) Informationsgehalt:
 		for (char u : anzahl.keySet()) {
-			System.out.println(u + ": " + informationsgehalt(anzahl, u));
+			System.out.println(u + ": " + informationsgehalt(anzahl, u, anz));
 		}
 
 //		b) Shannon-Entropie:
 		double entr = 0;
 		for (char u : anzahl.keySet()) {
-			entr += (double)(anzahl.get(u) / anzahl.size()) * informationsgehalt(anzahl, u);
+			entr += ((double) anzahl.get(u) / anz) * informationsgehalt(anzahl, u, anz);
 		}
 		System.out.println("Shannon-Entropie: " + entr);
 
 //		c) Min-Entropie:
-		entr = informationsgehalt(anzahl, '0');
+		entr = informationsgehalt(anzahl, '0', anz);
 
 		for (char u : anzahl.keySet()) {
-			if(informationsgehalt(anzahl, u) <  entr){
-				entr = informationsgehalt(anzahl, u);
+			if(informationsgehalt(anzahl, u, anz) <  entr){
+				entr = informationsgehalt(anzahl, u, anz);
 			}
 		}
 		
@@ -64,10 +71,10 @@ public class Aufgabe2 {
 	}
 
 	public static double log2(double d) {
-		return Math.log(d) / Math.log(2.0);
+		return (Math.log10(d) / Math.log10(2.0));
 	}
 
-	public static double informationsgehalt(HashMap<Character, Integer> h, char c) {
-		return -(log2((double) h.get(c) / h.size()));
+	public static double informationsgehalt(HashMap<Character, Integer> h, char c, int s) {
+		return -(log2((double) h.get(c) / s));
 	}
 }
