@@ -1,5 +1,6 @@
 package blatt6;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 public class OneTimePad {
@@ -10,8 +11,7 @@ public class OneTimePad {
 	 * Diese Methode ist die "Umkehrfunktion" zu {@link #getStringForm(String)}.
 	 */
 	public static byte[] getBinaryForm(String s) {
-//    	Evtl. Charset nachschauen!
-		return s.getBytes();
+		return s.getBytes(Charset.forName("ISO-8859-1"));
 	}
 
 	/**
@@ -24,7 +24,12 @@ public class OneTimePad {
 		char arr[] = new char[c.length];
 
 		for (int i = 0; i < c.length; i++) {
-			arr[i] = (char) c[i];
+			if(c[i] < 0) {
+//				Verstehen!
+				arr[i] = (char)(c[i] & 0xFF);
+			} else {
+				arr[i] = (char) c[i];
+			}
 		}
 		return Arrays.toString(arr);
 	}
@@ -33,10 +38,9 @@ public class OneTimePad {
 	 * Produziert ein (pseudo-)zufälliges Array von bytes mit der gegebenen Länge.
 	 */
 	public static byte[] getRandomKey(int length) {
-//		TODO: Nicht so toll!
 		byte[] b = new byte[length];
 		for (int i = 0; i < length; i++) {
-			b[i] = (byte)((Math.random() * 128) * Math.pow(-1.0, Math.random() * 2));
+			b[i] = (byte) (Math.random() * 255);
 		}
 		return b;
 	}
@@ -47,8 +51,17 @@ public class OneTimePad {
 	 * IllegalArgumentException, falls eine der Eingaben null ist oder falls die
 	 * Länge der Arrays nicht übereinstimmen.
 	 */
-	public static byte[] encode(byte[] msg, byte[] key) {
-		// Bitte implementieren!
+	public static byte[] encode(byte[] msg, byte[] key) throws IllegalArgumentException {
+		if ((msg == null) || (key == null) || (msg.length != key.length)) {
+			throw new IllegalArgumentException("Falsche Eingabe!");
+		}
+
+		byte[] b = new byte[msg.length];
+
+		for (int i = 0; i < key.length; i++) {
+			b[i] = (byte) (msg[i] ^ key[i]);
+		}
+		return b;
 	}
 
 	/**
@@ -57,33 +70,41 @@ public class OneTimePad {
 	 * IllegalArgumentException, falls eine der Eingaben null ist oder falls die
 	 * Länge der Arrays nicht übereinstimmen.
 	 */
-	public static byte[] decode(byte[] chiffre, byte[] key) {
-		// Bitte implementieren!
+	public static byte[] decode(byte[] chiffre, byte[] key) throws IllegalArgumentException {
+		if ((key == null) || (key == null) || (chiffre.length != key.length)) {
+			throw new IllegalArgumentException("Falsche Eingabe!");
+		}
+
+		byte[] b = new byte[chiffre.length];
+
+		for (int i = 0; i < key.length; i++) {
+			b[i] = (byte) (chiffre[i] ^ key[i]);
+		}
+		return b;
+
 	}
 
 	/**
-	 * Gibt eine binäre Repräsentation des gegebenen byte-Arrays zurück. Dabei
-	 * wird jedes byte mit 8 Symbolen aus {0, 1} repräsentiert (auch die führenden
+	 * Gibt eine binäre Repräsentation des gegebenen byte-Arrays zurück. Dabei wird
+	 * jedes byte mit 8 Symbolen aus {0, 1} repräsentiert (auch die führenden
 	 * 0-en!).
 	 */
 	public static String toBinaryString(byte[] buf) {
 
 		StringBuffer bf = new StringBuffer();
-		String tmp;
+		String tmp = "";
 		for (int i = 0; i < buf.length; i++) {
-			tmp = Integer.toBinaryString(buf[i]);
 
-			if (buf[i] < 0) {
-				for (int j = 32 - 8; j < tmp.length(); j++) {
-					bf.append(tmp.charAt(j));
-				}
-			} else {
-				for (int j = tmp.length(); j < 8; j++) {
-					bf.append('0');
-				}
-				bf.append(tmp);
+//			Nochmal überlegen!!
+			int x = buf[i];
+			x &= 0xFF;
+			tmp = Integer.toBinaryString(x);
+
+			for (int j = tmp.length(); j < 8; j++) {
+				bf.append('0');
 			}
 
+			bf.append(tmp);
 		}
 
 		return bf.toString();
@@ -106,15 +127,16 @@ public class OneTimePad {
 	}
 
 	public static void main(String[] args) {
-//		testBasics();
+		testBasics();
 
 		// Testen der Methoden:
-		byte[] b = OneTimePad.getBinaryForm("Hallo");
-		String s = OneTimePad.getStringForm(b);
-		System.out.println(s);
-
-		byte c[] = {34};
-		System.out.println(OneTimePad.toBinaryString(c));
+//		byte[] b = OneTimePad.getBinaryForm("Hallo");
+//		String s = OneTimePad.getStringForm(b);
+//		System.out.println(s);
+//
+//		byte c[] = OneTimePad.getBinaryForm("üß");
+//		System.out.println(OneTimePad.toBinaryString(c));
+//		System.out.println(OneTimePad.getStringForm(c));
 
 	}
 
