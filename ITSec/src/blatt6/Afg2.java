@@ -47,39 +47,38 @@ public class Afg2 {
 		}
 
 //		Wahrscheinlichkeit:
-		for(char d : anzahl.keySet()) {
-			System.out.println("Wahrscheinlichkeit: " + d + " : " + (double)d/inp.length());
+		for (char d : anzahl.keySet()) {
+			System.out.println("Wahrscheinlichkeit: " + d + " : " + ((double) anzahl.get(d) / inp.length())/100);
 		}
-		
+
 		System.out.println();
-		
-		for(int i = 0; i < inp.length(); i++){
+
+		for (int i = 0; i < inp.length(); i++) {
 			c = inp.charAt(i);
 			switch (c) {
+			case 'y':
+				System.out.print('e');
+				break;
 			case 'f':
 				System.out.print('a');
 				break;
+			case 'm':
+				System.out.print('t');
+				break;
 //			case 'm':
-//				System.out.print('t');
+//				System.out.print('f');
 //				break;
-//			case 'o':
-//				System.out.print('h');
+//			case 't':
+//				System.out.print('l');
 //				break;
-//			case 'i':
-//				System.out.print('e');
+//				case 'r':
+//				System.out.print('l');
 //				break;
 			default:
 				System.out.print(c);
-			} 
-			
-			
+			}
+
 		}
-		
-//		?????
-//		f: a
-//		m: t
-//		o: h
-//		i: e
-//
+		System.out.println();
 	}
 }
