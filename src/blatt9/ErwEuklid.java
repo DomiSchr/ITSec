@@ -21,6 +21,6 @@ public class ErwEuklid {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(ErwEuklid()));
+		System.out.println(Arrays.toString(ErwEuklid(25, 15)));
 	}
 }
