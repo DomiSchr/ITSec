@@ -330,17 +330,38 @@ public class Primzahl {
 			49697, 49711, 49727, 49739, 49741, 49747, 49757, 49783, 49787, 49789, 49801, 49807, 49811, 49823, 49831,
 			49843, 49853, 49871, 49877, 49891, 49919, 49921, 49927, 49937, 49939, 49943, 49957, 49991, 49993, 49999 };
 
+//	public static boolean isPrime(int x) {
+//		int tmp = 2;
+//
+//		while ((tmp * tmp) <= x) {
+//			tmp++;
+//		}
+//		
+//		int t;
+//
+//		for (int i = 0; i < arr.length; i++) {
+//			t = arr[i];
+//			if (x % t == 0) {
+//				return false;
+//			}
+//
+//			if (t >= tmp) {
+//				return true;
+//			}
+//		}
+//		return true;
+//	}
+
 	public static boolean isPrime(int x) {
 		int tmp = 2;
 
 		while ((tmp * tmp) <= x) {
 			tmp++;
 		}
-		
-		int t;
 
-		for (int i = 0; i < arr.length; i++) {
-			t = arr[i];
+		int t = 2;
+
+		while (true) {
 			if (x % t == 0) {
 				return false;
 			}
@@ -348,12 +369,12 @@ public class Primzahl {
 			if (t >= tmp) {
 				return true;
 			}
+			t++;
 		}
-		return true;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(isPrime(Integer.MAX_VALUE));
-//		System.out.println(isPrime(101));
+//		System.out.println(isPrime(Integer.MAX_VALUE));
+		System.out.println(isPrime(101));
 	}
 }
