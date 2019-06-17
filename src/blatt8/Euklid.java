@@ -2,13 +2,11 @@ package blatt8;
 
 public class Euklid {
 	public static int euklid(int a, int b) {
-		if (a == b) {
+		if (b == 0) {
 			return a;
+		} else {
+			return euklid(b, a % b);
 		}
-		if (a < b) {
-			return euklid(a, b - a);
-		}
-		return euklid(a - b, b);
 	}
 
 	public static void main(String[] args) {
