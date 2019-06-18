@@ -25,7 +25,7 @@ public class Afg2 {
 		a = arr[1];
 		
 		privKey[0] = n;
-		privKey[1] = a;
+		privKey[1] = a;	
 
 	}
 
