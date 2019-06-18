@@ -11,12 +11,12 @@ public class Afg2 {
 		int n = p * q;
 		int phi = (p - 1) * (q - 1);
 
+		int i = 0;
 		int a = 0;
-		while (a != 1) {
-			a = blatt8.Euklid.euklid(a, phi);
-			a++;
+		while (a != 1 && i < phi - 1) {
+			a = blatt8.Euklid.euklid(i, phi);
+			i++;
 		}
-		System.out.println("Euk");
 		pubKey[0] = n;
 		pubKey[1] = a;
 
