@@ -19,10 +19,11 @@ public class Afg2 {
 		}
 		pubKey[0] = n;
 		pubKey[1] = a;
-
+		
+//	Funktioniert!
 		int[] arr = blatt9.ErwEuklid.ErwEuklid(a, phi);
-		a = arr[2];
-
+		a = arr[1];
+		
 		privKey[0] = n;
 		privKey[1] = a;
 

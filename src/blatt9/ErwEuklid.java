@@ -24,6 +24,6 @@ public class ErwEuklid {
 		
 		
 		int phi = (188711 - 1) * (72173131 - 1);
-		System.out.println(Arrays.toString(ErwEuklid(1, phi)));
+		System.out.println(Arrays.toString(ErwEuklid(67, 29)));
 	}
 }
