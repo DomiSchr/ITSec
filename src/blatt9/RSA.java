@@ -8,13 +8,17 @@ public class RSA {
      * Bitte geeignete Attribute für die Klasse definieren.
      * Jede Instanz von RSA soll sein eigenes Schluesselpaar besitzen.
      */
-    
+    	private BigInteger n;
+    	private BigInteger a;
+    	private BigInteger b;
     
     /**
      * Builds a new key-pair for RSA using the given two prime numbers.
      */
     private RSA(BigInteger prime1, BigInteger prime2) {
         //TODO Bitte implementieren
+    	n = prime1.multiply(prime2);
+    	BigInteger phi = prime1.subtract(1).multiply(prime2.subtract(1));
     }
     
     
