@@ -22,10 +22,9 @@ public class Afg2 {
 		
 //	Funktioniert!
 		int[] arr = blatt9.ErwEuklid.ErwEuklid(a, phi);
-		a = arr[1];
 		
 		privKey[0] = n;
-		privKey[1] = a;	
+		privKey[1] = arr[1];	
 
 	}
 
