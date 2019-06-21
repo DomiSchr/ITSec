@@ -9,7 +9,7 @@ public class RSA {
 	 * soll sein eigenes Schluesselpaar besitzen.
 	 */
 	private BigInteger privKey[] = new BigInteger[2];
-	private BigInteger pubKey[]  = new BigInteger[2];
+	private BigInteger pubKey[] = new BigInteger[2];
 
 	/**
 	 * Builds a new key-pair for RSA using the given two prime numbers.
@@ -18,25 +18,28 @@ public class RSA {
 		BigInteger n = prime1.multiply(prime2);
 		BigInteger phi = prime1.subtract(BigInteger.ONE).multiply(prime2.subtract(BigInteger.ONE));
 
-		BigInteger a[];
+		BigInteger a[] = new BigInteger[3];
 		BigInteger i = BigInteger.ZERO;
-		do {
+		
+		while (a[0] != BigInteger.ONE && i.compareTo(phi.subtract(BigInteger.ONE)) == -1) {
 			a = ggt(i, phi);
 			i.add(BigInteger.ONE);
-		} while (!a[0].equals(BigInteger.ONE));
-		
+		}
+
 		pubKey[0] = n;
 		pubKey[1] = a[0];
-		
+		System.out.println("pubkey");
+
 		a = ggt(a[0], phi);
-		
+		System.out.println("ggT");
+
 		privKey[0] = n;
 		privKey[1] = a[1];
 
 	}
 
 	private BigInteger[] ggt(BigInteger a, BigInteger b) {
-		if (b.equals(0)) {
+		if (b == BigInteger.ZERO) {
 			BigInteger arr[] = { a, BigInteger.ONE, BigInteger.ZERO };
 			return arr;
 		}
@@ -63,7 +66,7 @@ public class RSA {
 	 * cipher text.
 	 */
 	public BigInteger encode(BigInteger message) {
-		return message.pow(pubKey[1].intValue()).mod(pubKey[0]);
+		return message.modPow(pubKey[1], pubKey[0]);
 	}
 
 	/**
@@ -71,23 +74,23 @@ public class RSA {
 	 * corresponding message.
 	 */
 	public BigInteger decode(BigInteger chiffre) {
-		return chiffre.pow(privKey[1].intValue()).mod(privKey[0]);
+		return chiffre.modPow(privKey[1], privKey[0]);
 	}
 
 	/**
 	 * Returns a human-readable version of public and private key.
 	 */
 	public String toString() {
-		return "Public Key: n: " + pubKey[0].toString() + ", a:" + pubKey[1].toString() + "\nPrivate Key: n:" + privKey[0].toString() + ", b:"
-				+ privKey[1].toString();
+		return "Public Key: n: " + pubKey[0].toString() + ", a:" + pubKey[1].toString() + "\nPrivate Key: n:"
+				+ privKey[0].toString() + ", b:" + privKey[1].toString();
 	}
 
 	public static void main(String[] args) {
 		BigInteger a = BigInteger.valueOf(67);
 		BigInteger b = BigInteger.valueOf(101);
-		RSA r = new RSA(a,b);
-		System.out.println(r.encode(r.encode(a)).toString());
-		
+		RSA r = new RSA(a, b);
+		System.out.println((r.decode(r.encode(a))).toString());
+
 	}
 
 }
