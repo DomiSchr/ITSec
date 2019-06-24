@@ -42,8 +42,7 @@ public class Afg2 {
 		Afg2 a = new Afg2();
 
 		a.calcKeys(188711, 72173131);
-		long l = a.encrypt(12816119204301L);
-		System.out.println(a.decrypt(l));
+		System.out.println(a.decrypt(a.decrypt(123456789L)));
 	}
 
 }
