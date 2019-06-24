@@ -1,6 +1,7 @@
 package blatt9;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 public class RSA {
 
@@ -20,9 +21,10 @@ public class RSA {
 
 		BigInteger a[] = new BigInteger[3];
 		BigInteger i = BigInteger.ZERO;
-		
+
 		while (a[0] != BigInteger.ONE && i.compareTo(phi.subtract(BigInteger.ONE)) == -1) {
 			a = ggt(i, phi);
+			System.out.println(a);
 			i.add(BigInteger.ONE);
 		}
 
@@ -58,7 +60,7 @@ public class RSA {
 	 * chosen randomly using a pseudo-random number generator.
 	 */
 	public RSA(int bitLength) {
-		// TODO Bitte implementieren
+		RSA(BigInteger.probablePrime(bitLength, new Random()), BigInteger.probablePrime(bitLength, new Random()));
 	}
 
 	/**

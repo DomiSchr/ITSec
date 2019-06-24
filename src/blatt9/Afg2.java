@@ -42,7 +42,7 @@ public class Afg2 {
 		Afg2 a = new Afg2();
 
 		a.calcKeys(188711, 72173131);
-		System.out.println(a.decrypt(a.decrypt(123456789L)));
+		System.out.println(a.decrypt(a.decrypt(24121997L)));
 	}
 
 }
