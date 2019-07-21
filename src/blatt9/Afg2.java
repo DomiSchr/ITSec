@@ -19,12 +19,14 @@ public class Afg2 {
 		}
 		pubKey[0] = n;
 		pubKey[1] = a;
+		System.out.println(a);
 		
 //	Funktioniert!
 		int[] arr = blatt9.ErwEuklid.ErwEuklid(a, phi);
 		
 		privKey[0] = n;
-		privKey[1] = arr[1];	
+		privKey[1] = arr[1];
+		System.out.println(arr[1]);
 
 	}
 
@@ -41,8 +43,8 @@ public class Afg2 {
 	public static void main(String[] args) {
 		Afg2 a = new Afg2();
 
-		a.calcKeys(188711, 72173131);
-		System.out.println(a.decrypt(a.decrypt(24121997L)));
+		a.calcKeys(5, 24);
+		System.out.println(a.decrypt(a.encrypt(12345678L)));
 	}
 
 }
